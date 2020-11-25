@@ -1,4 +1,5 @@
 import numpy as np
+from tqdm import tqdm
 class POS(object):
     def __init__(self):
         self.vocab = None
@@ -33,6 +34,7 @@ class POS(object):
         # only the words which have aprpeaed in our corpus at least twice are kept
         vocab = [key for key, val in word_freq.items() if val >= 2]
         vocab.append('--unk--') # this tag will represent words which are not part of vocabulary
+        vocab.append('--n--') # word curresponding to start of line token
         vocab.sort()
         vocab = {word:idx for idx, word in enumerate(vocab)}
         self.vocab = vocab
@@ -158,7 +160,7 @@ class POS(object):
         D[:,0] = 0
 
         # loop for each word in test i.e column
-        for j in range(1,len(test)):
+        for j in tqdm(range(1,len(test))):
 
             # loop over each tag i.e. row
             for i in range(num_tags):
