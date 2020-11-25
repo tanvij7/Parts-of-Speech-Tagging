@@ -1,5 +1,5 @@
 import numpy as np
-class POP(object):
+class POS(object):
     def __init__(self):
         self.vocab = None
         self.tags  = None
@@ -18,8 +18,8 @@ class POP(object):
     def predict(self, test_ex):
         test_ex = test_ex.split()
         C, D = self.build_viterby_matrices(test_ex)
-        seq = self.get_seq_of_pop(C, D)
-        return seq
+        tag_seq = self.get_seq_of_pop(C, D)
+        return [self.tags[idx] for idx in tag_seq]#seq
 
     #---------------------------------Training Helper Functions --------------------------------
     def build_vocab(self, train_data):
